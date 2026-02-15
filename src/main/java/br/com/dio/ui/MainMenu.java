@@ -29,7 +29,7 @@ public class MainMenu {
             System.out.println("2 - Selecionar um board existente");
             System.out.println("3 - Excluir um board");
             System.out.println("4 - Sair");
-            option = scanner.nextInt();
+            option = Integer.parseInt(scanner.next().trim());
             switch (option){
                 case 1 -> createBoard();
                 case 2 -> selectBoard();
@@ -46,7 +46,7 @@ public class MainMenu {
         entity.setName(scanner.next());
 
         System.out.println("Seu board terá colunas além das 3 padrões? Se sim informe quantas, senão digite '0'");
-        var additionalColumns = scanner.nextInt();
+        var additionalColumns = Integer.parseInt(scanner.next().trim());
 
         List<BoardColumnEntity> columns = new ArrayList<>();
 
@@ -82,7 +82,7 @@ public class MainMenu {
 
     private void selectBoard() throws SQLException {
         System.out.println("Informe o id do board que deseja selecionar");
-        var id = scanner.nextLong();
+        var id = Long.parseLong(scanner.next().trim());
         try(var connection = getConnection()){
             var queryService = new BoardQueryService(connection);
             var optional = queryService.findById(id);
@@ -95,7 +95,7 @@ public class MainMenu {
 
     private void deleteBoard() throws SQLException {
         System.out.println("Informe o id do board que será excluido");
-        var id = scanner.nextLong();
+        var id = Long.parseLong(scanner.next().trim());
         try(var connection = getConnection()){
             var service = new BoardService(connection);
             if (service.delete(id)){
